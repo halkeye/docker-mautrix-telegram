@@ -1,4 +1,4 @@
-FROM curlimages/curl:8.8.0 AS builder
+FROM curlimages/curl:8.11.0 AS builder
 ARG TARGETPLATFORM
 ARG UPSTREAM_VERSION=0.15.2
 RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
@@ -10,7 +10,7 @@ RUN DOCKER_ARCH=$(case ${TARGETPLATFORM:-linux/amd64} in \
   && curl -sL https://github.com/mautrix/telegram/releases/download/v${UPSTREAM_VERSION}/mautrix-telegram-${DOCKER_ARCH} > /tmp/mautrix-telegram
 RUN chmod 0755 /tmp/mautrix-telegram
 
-FROM debian:12.5-slim AS runtime
+FROM debian:12.8-slim AS runtime
 RUN apt-get update && apt-get install -y \
   ca-certificates=20230311 \
   gettext-base=0.21-12 \
